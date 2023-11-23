@@ -77,6 +77,34 @@ async function main() {
   }
 }
 
+// Função modificada para buscar previsões de uma linha de ônibus específica
+function obterPrevisoesPorLinha(codLinha) {
+  axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codLinha}/0/retornoJSON`)
+  .then(response => {
+      const data = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
+      exibirPrevisoes(data);
+  })
+  .catch(error => {
+      console.error("Erro ao obter previsões:", error);
+  });
+}
+
+// Função para exibir linhas de ônibus como links clicáveis
+function exibirLinhasOnibusComoLinks(linhas) {
+  const listaLinhas = document.getElementById('lista-linhas-onibus');
+  listaLinhas.innerHTML = '';
+
+  linhas.forEach(linha => {
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `javascript:obterPrevisoesPorLinha(${linha.cod});`; // Adiciona a função para buscar previsões
+      link.textContent = linha.nome;
+      li.appendChild(link);
+      listaLinhas.appendChild(li);
+  });
+}
+
+
 function obterPrevisoes(codParada) {
   axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`)
     .then(response => {
@@ -88,6 +116,23 @@ function obterPrevisoes(codParada) {
     });
 }
 
+// Função para exibir linhas de ônibus como links clicáveis
+function exibirLinhasOnibus(linhas) {
+  const listaLinhas = document.getElementById('lista-linhas-onibus');
+  listaLinhas.innerHTML = '';
+
+  linhas.forEach(linha => {
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `#`; // O link não levará a uma nova página
+      link.textContent = linha.nome;
+      link.onclick = () => buscarPrevisoes(linha.cod); // Adiciona a função para buscar previsões
+      li.appendChild(link);
+      listaLinhas.appendChild(li);
+  });
+}
+
+// Você deve chamar essa função com os dados da API quando necessário
 
 
 

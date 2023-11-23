@@ -40,6 +40,17 @@ app.get('/proxyLinhasDaParada', (req, res) => {
         });
 });
 
+app.get('/previsoes/:linhaId', async (req, res) => {
+    const linhaId = req.params.linhaId;
+    try {
+        const response = await axios.get(`URL_DA_API_PARA_PREVISOES/${linhaId}`);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Erro ao buscar previsões:', error);
+        res.status(500).send('Erro ao buscar previsões');
+    }
+});
+
 
 
 app.get('/parada/:codParada', async (req, res) => {
