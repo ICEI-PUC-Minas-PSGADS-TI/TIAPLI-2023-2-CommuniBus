@@ -26,20 +26,20 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/proxyLinhasDaParada', cors(), async (req, res) => {
+app.get('/proxyLinhasDaParada', (req, res) => {
     const codParada = req.query.codParada;
-    if (!codParada) {
-        return res.status(400).send('codParada é obrigatório');
-    }
-
-    try {
-        const response = await axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/retornaLinhasQueAtendemParada/${codParada}/0/retornoJSON`);
-        res.json(response.data);
-    } catch (error) {
-        console.error('Erro ao fazer a requisição:', error);
-        res.status(500).send('Erro interno');
-    }
+    // Supondo que você está fazendo uma requisição para uma API externa aqui
+    axios.get(`URL_DA_API_EXTERNA?codParada=${codParada}`)
+        .then(apiResponse => {
+            // Certifique-se de que a resposta da API externa está no formato correto
+            res.json(apiResponse.data);
+        })
+        .catch(error => {
+            console.error("Erro ao buscar linhas da parada:", error);
+            res.status(500).send("Erro ao buscar linhas da parada");
+        });
 });
+
 
 
 app.get('/parada/:codParada', async (req, res) => {

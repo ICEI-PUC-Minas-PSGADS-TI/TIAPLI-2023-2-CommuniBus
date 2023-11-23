@@ -201,37 +201,66 @@ function initMap() {
     title: 'Sua localização'
   });
 }
+
 function retornoJSON(data) {
   if (data && data.linhas) {
-      // Suponho que você tenha alguma função para processar e exibir as linhas de ônibus
-      const linhas = response.data.linhas;
-      const listaLinhasOnibus = document.getElementById('lista-linhas-onibus');
-      listaLinhasOnibus.innerHTML = ''; // Limpa a lista atual
+    const listaLinhasOnibus = document.getElementById('lista-linhas-onibus');
+    listaLinhasOnibus.innerHTML = ''; // Limpa a lista atual
 
-      if (linhas.length === 0) {
-          console.log('Nenhuma linha de ônibus encontrada para esta parada.');
-          return;
-      }
+    if (data.linhas.length === 0) {
+      console.log('Nenhuma linha de ônibus encontrada para esta parada.');
+      return;
+    }
 
-      linhas.forEach(linha => {
-          const item = document.createElement('li');
-          item.textContent = `${linha.num_linha} - ${linha.descricao}`;
-          listaLinhasOnibus.appendChild(item);
-      });
-    
-      exibirLinhasOnibus(data.linhas);
+    data.linhas.forEach(linha => {
+      const item = document.createElement('li');
+      item.textContent = `${linha.num_linha} - ${linha.descricao}`;
+      listaLinhasOnibus.appendChild(item);
+    });
   } else {
-      console.error('Resposta inválida ou ausente de linhas de ônibus.');
+    console.error('Resposta inválida ou ausente de linhas de ônibus.');
   }
 }
 
+async function buscarLinhasDaParada(codParada) {
+  try {
+      const response = await axios.get(`http://127.0.0.1:4001/proxyLinhasDaParada?codParada=${codParada}`);
+      
+      // Correção para tratar a resposta como JSON
+      const parsedData = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
+      if (parsedData && parsedData.linhas && Array.isArray(parsedData.linhas)) {
+          const linhas = parsedData.linhas;
 
-function buscarLinhasDaParada(codParada) {
-  const script = document.createElement('script');
-  script.src = `http://127.0.0.1:4001/proxyLinhasDaParada?codParada=${codParada}&callback=retornoJSON`;
-  document.head.appendChild(script);
-  document.head.removeChild(script); // Remove o script após adicionar para evitar poluição no DOM
+          // Aqui você pode processar as linhas como necessário
+          // Por exemplo, atualizar a interface do usuário com as informações das linhas
+          linhas.forEach(linha => {
+              // Processamento de cada linha
+              console.log(linha); // Exemplo de log
+              atualizarUIComLinhas(linhas);
+
+            });
+      } else {
+          console.error("Nenhuma linha encontrada para a parada:", codParada);
+      }
+  } catch (error) {
+      console.error("Erro ao buscar linhas da parada:", error);
+  }
 }
+function atualizarUIComLinhas(linhas) {
+  const container = document.getElementById('linhasContainer');
+  container.innerHTML = ''; // Limpar conteúdo anterior
+
+  linhas.forEach(linha => {
+      const linhaDiv = document.createElement('div');
+      linhaDiv.innerHTML = `
+          <p>Código da Linha: ${linha.cod_linha}</p>
+          <p>Número da Linha: ${linha.num_linha}</p>
+          <p>Descrição: ${linha.descricao}</p>
+      `;
+      container.appendChild(linhaDiv);
+  });
+}
+
 
 
 
