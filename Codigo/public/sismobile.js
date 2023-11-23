@@ -132,13 +132,16 @@ function exibirLinhasOnibus(linhas) {
   linhas.forEach(linha => {
       const li = document.createElement('li');
       const link = document.createElement('a');
-      link.href = `#`; // O link não levará a uma nova página
+      link.href = `javascript:void(0);`; // Prevenir o comportamento padrão do link
       link.textContent = linha.nome;
-      link.onclick = () => buscarPrevisoes(linha.cod); // Adiciona a função para buscar previsões
+      link.onclick = () => {
+          obterPrevisoesPorLinha(linha.cod); // Chamar a função para buscar previsões
+      };
       li.appendChild(link);
       listaLinhas.appendChild(li);
   });
 }
+
 
 // Você deve chamar essa função com os dados da API quando necessário
 
@@ -283,8 +286,8 @@ async function buscarLinhasDaParada(codParada) {
       const parsedData = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
       if (parsedData && parsedData.linhas && Array.isArray(parsedData.linhas)) {
           const linhas = parsedData.linhas;
-          exibirLinhasOnibusComoLinks(linhas); // Chame esta função aqui
-
+          exibirLinhasOnibus(linhas);
+          
           // Aqui você pode processar as linhas como necessário
           // Por exemplo, atualizar a interface do usuário com as informações das linhas
           linhas.forEach(linha => {
