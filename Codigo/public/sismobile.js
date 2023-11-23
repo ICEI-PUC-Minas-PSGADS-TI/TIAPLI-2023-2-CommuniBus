@@ -96,14 +96,20 @@ function exibirLinhasOnibusComoLinks(linhas) {
 
   linhas.forEach(linha => {
       const li = document.createElement('li');
-      const link = document.createElement('a');
-      link.href = `javascript:void(0);`;
-      link.textContent = linha.nome;
-      link.addEventListener('click', () => obterPrevisoesPorLinha(linha.cod));
-      li.appendChild(link);
+      // Usando 'button' em vez de 'a' para garantir a interatividade
+      const botao = document.createElement('button');
+      botao.textContent = linha.nome;
+      botao.onclick = () => obterPrevisoesPorLinha(linha.cod);
+      botao.style.textDecoration = 'underline';
+      botao.style.background = 'none';
+      botao.style.border = 'none';
+      botao.style.color = 'blue';
+      botao.style.cursor = 'pointer';
+      li.appendChild(botao);
       listaLinhas.appendChild(li);
   });
 }
+
 
 
 
