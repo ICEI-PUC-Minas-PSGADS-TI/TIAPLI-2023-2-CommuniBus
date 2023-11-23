@@ -3,191 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="INFOport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish">
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" type="image/x-icon" href="CommuniBuss.png">
     <title>CommuniBus</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
 
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
+        .container {
+            padding-right: 2.5rem !important;
+        }
+
+        .card {
+        height: 350px !important; /* Defina a altura desejada para os cards */
+    }
+
+    .card-img-top {
+        object-fit: cover;
+    }
+
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
             -webkit-user-select: none;
             -moz-user-select: none;
             user-select: none;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
-
-
-
-        ::selection {
-            color: #fff;
-            background: #1da1f2;
-        }
-
-        .wrapper {
-            background: #fff;
-            width: 100%;
-            border-radius: 15px;
-            padding: 25px 25px 15px 25px;
-            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-box {
-            padding-top: 10px;
-            border-bottom: 1px solid #e6e6e6;
-        }
-
-        .input-box .tweet-area {
-            position: relative;
-            min-height: 130px;
-            max-height: 170px;
-            overflow-y: auto;
-        }
-
-        .tweet-area::-webkit-scrollbar {
-            width: 0px;
-        }
-
-        .tweet-area .placeholder {
-            position: absolute;
-            margin-top: -3px;
-            font-size: 22px;
-            color: #98A5B1;
-            pointer-events: none;
-            display: flex;
-        }
-
-        .tweet-area .placeholder i {
-            margin-right: 10px;
-        }
-
-        .tweet-area .input {
-            outline: none;
-            font-size: 17px;
-            min-height: inherit;
-            word-wrap: break-word;
-            word-break: break-all;
-            display: flex;
-        }
-
-        .tweet-area .editable {
-            position: relative;
-            z-index: 5;
-            display: flex;
-        }
-
-        .tweet-area .readonly {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            color: transparent;
-            background: transparent;
-            display: flex;
-        }
-
-        .readonly .highlight {
-            background: #fd9bb0;
-        }
-
-        .input-box .privacy {
-            color: #1da1f2;
-            margin: 15px 0;
-            display: flex;
-            padding: 7px 10px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            max-width: fit-content;
-
-        }
-
-        .privacy:hover,
-        .icons li:hover {
-            background: #e7f5fe;
-        }
-
-        .privacy i {
-            font-size: 18px;
-        }
-
-        .privacy span {
-            font-size: 15px;
-            font-weight: 600;
-            margin-left: 7px;
-        }
-
-        .bottom {
-            display: flex;
-            margin-top: 13px;
-            justify-content: space-between;
-        }
-
-        .bottom .icons {
-            display: inline-flex;
-        }
-
-        .icons li {
-            list-style: none;
-            color: #1da1f2;
-            font-size: 20px;
-            margin: 0 2px;
-            height: 38px;
-            width: 38px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.2s ease;
-        }
-
-        .bottom .content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .bottom .counter {
-            color: #333;
-            display: none;
-            font-weight: 500;
-            margin-right: 15px;
-            padding-right: 15px;
-            border-right: 1px solid #aab8c2;
-        }
-
-        .bottom button {
-            padding: 9px 18px;
-            border: none;
-            outline: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 700;
-            background: #1da1f2;
-            color: #fff;
-            cursor: pointer;
-            opacity: 0.5;
-            pointer-events: none;
-            transition: background 0.2s ease;
-        }
-
-        .bottom button.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .bottom button:hover {
-            background: #0d8bd9;
         }
 
         @media (min-width: 768px) {
@@ -203,7 +50,6 @@
     <header>
         <div class="header-div" style="display: flex; justify-content: space-between; align-items: center;">
 
-
             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvas" role="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" fill="currentColor" class="bi bi-justify"
@@ -215,8 +61,7 @@
 
             </button>
 
-            <img src="CommuniBuss.png" alt="" class="imgheader">
-
+            <a href="./index.html"> <img src="CommuniBuss.png" alt="" class="imgheader"></a>
 
             <a id="botaoVoltar" class="btn d-flex" href="./login.html" style="font-size: 10px;">
                 <button type="button" class="btn btn-outline-secondary">
@@ -230,6 +75,7 @@
             </a>
         </div>
     </header>
+
 
     <main>
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" style="width: 250px;">
@@ -249,7 +95,7 @@
 
                             <a href="./index.html" class="navlink" aria-current="page">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
-                                    class="bi bi-house" viewBox="0 0 20 20">
+                                    class="bi bi-house" INFOBox="0 0 20 20">
                                     <path
                                         d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
                                 </svg>
@@ -262,11 +108,11 @@
 
                             <a href="./noticias.html" class="navlink">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
-                                    class="bi bi-newspaper" viewBox="0 0 20 20">
+                                    class="bi bi-newspaper" INFOBox="0 0 20 20">
                                     <path
                                         d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z" />
                                     <path
-                                        d="M2 3h10v2h3V3zm0 3h4v3h3V6zm0 4h4v1h3v-1zm0 2h4v1h3v-1zm5-6h3v1H7V6zm3 0h3v1h-2V6zM7 8h3v1H7V8zm3 0h3v1h-2V8zm-3 2h3v1H7v-1zm3 0h3v1h-2v-1zm-3 2h3v1H7v-1zm3 0h3v1h-2v-1z" />
+                                        d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z" />
                                 </svg>
                                 Notícias
                             </a>
@@ -277,7 +123,7 @@
                         <div class="licontent d-flex align-items">
                             <a href="./conecte.html" class="navlink">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
-                                    class="bi bi-globe-americas" viewBox="0 0 20 20">
+                                    class="bi bi-globe-americas" INFOBox="0 0 20 20">
                                     <path
                                         d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z" />
                                 </svg>
@@ -294,50 +140,274 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="album">
 
-            <div class="wrapper">
-                <div class="input-box">
-                    <div class="tweet-area">
-                        <div class=""></div>
-                        <div class="css-1dbjc4n r-onrtq4 r-18kxxzh r-1b7u577 r-ttdzmv">
+            <div class="container">
 
+                <h2>Trânsito em BH</h2>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/25-melhorias-no-transporte-da-regiao-pampulha-5034-5035-5036-1.png?itok=DOxqVboN"
+                                alt="imgcard">
+
+                            <div class="card-body">
+                                <p class="card-text">Prefeitura cria novas linhas do transporte coletivo para região da
+                                    Pampulha .</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a 
+                                            href="https://prefeitura.pbh.gov.br/noticias/prefeitura-cria-novas-linhas-do-transporte-coletivo-para-regiao-da-pampulha" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">22/11/2023</small>
+                                </div>
+                            </div>
                         </div>
-                        <span class="placeholder">O que está acontecendo?</span>
-                        <div class="input editable" contenteditable="true" spellcheck="false"></div>
-                        <div class="input readonly" contenteditable="true" spellcheck="false"></div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/53269771691_4852b56870_k.jpg?itok=7aet7cLH"
+                                alt="imgcard">
+
+                            <div class="card-body">
+                                <p class="card-text">Transporte coletivo de Belo Horizonte já tem 375 ônibus novos.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/transporte-coletivo-de-belo-horizonte-ja-tem-375-onibus-novos" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">22/11/2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/21-melhorias-linha-308_capaportal.png?itok=betaqr9-"
+                                alt="imgcard">
+
+                            <div class="card-body">
+                                <p class="card-text">PBH implementa melhorias na linha 308 que terá novo atendimento
+                                    noturno.
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/pbh-implementa-melhorias-na-linha-308-que-tera-novo-atendimento-noturno" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">21/11/2023</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="privacy">
-                        <i class="fas fa-globe-asia"></i>
-                        <span>Qualquer pessoa pode responder</span>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/19-dia-mundial-em-memoria-das-vitimas-de-transito-2023.png?itok=mTr-68Mn"
+                                alt="imgcard">
+
+
+                            <div class="card-body">
+                                <p class="card-text">Nova etapa de campanha da PBH com motociclistas reforça prevenção
+                                    aos acidentes.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/nova-etapa-de-campanha-da-pbh-com-motociclistas-reforca-prevencao-aos-acidentes" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">17/11/2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/7116245129_fb9d5c5398_o.jpg?itok=GDe51ElS"
+                                alt="imgcard">
+
+
+                            <div class="card-body">
+                                <p class="card-text">Operação de trânsito para final do Campeonato Mineiro Feminino
+                                    neste domingo. </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/operacao-de-transito-para-final-do-campeonato-mineiro-feminino-neste-domingo" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">17/11/2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/02-obras-waldomiro-lobo-fechamento-cristiano-machado-feriado0211_capa-1_0.jpg?itok=9uN1PTOB"
+                                alt="imgcard">
+
+
+                            <div class="card-body">
+                                <p class="card-text">Trânsito na Cristiano Machado será alterado para obra de viaduto no
+                                    Guarani. </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/transito-na-cristiano-machado-sera-alterado-para-obra-de-viaduto-no-guarani" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">16/11/2023</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bottom">
-                        <ul class="icons">
-                            <li><i class="uil uil-capture"></i></li>
-                            <li><i class="far fa-file-image"></i></li>
-                            <li><i class="fas fa-map-marker-alt"></i></li>
-                            <li><i class="far fa-grin"></i></li>
-                            <li><i class="far fa-user"></i></li>
-                        </ul>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/praca7-198.jpg?itok=Hxj88eD1"
+                                alt="imgcard">
 
-                        <div class="content">
-                            <span class="counter">100</span>
-                            <button>Postar</button>
+
+                            <div class="card-body">
+                                <p class="card-text">PBH credencia empresas de transporte por aplicativos para operar na
+                                    capital. </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/pbh-credencia-empresas-de-transporte-por-aplicativos-para-operar-na-capital" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">14/11/2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/13-11-2023-prefeito-fuad-noman-assina-ordem-de-servico-de-obras-de-requalificacao-da-mobilidade-da-avenida-afonso-pena-rodrigo-clemente-pbh-22.jpg?itok=1H-5sQt8"
+                                alt="imgcard">
+
+
+                            <div class="card-body">
+                                <p class="card-text">Prefeito Fuad Noman assina ordem de serviço para início de obras na
+                                    Afonso Pena. </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/prefeito-fuad-noman-assina-ordem-de-servico-para-inicio-de-obras-na-afonso-pena" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">13/11/2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                src="https://prefeitura.pbh.gov.br/sites/default/files/styles/slideshow/public/estrutura-de-governo/11-11-2023-prefeito-fuad-noman-treinamento-integrado-av.-cristiano-machado-adao-de-souza-pbh-7.jpg?itok=798Lxzyl"
+                                alt="imgcard">
+
+
+                            <div class="card-body">
+                                <p class="card-text">PBH realiza primeiro treinamento integrado na Av. Cristiano
+                                    Machado. </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a
+                                            href="https://prefeitura.pbh.gov.br/noticias/pbh-realiza-primeiro-treinamento-integrado-na-av-cristiano-machado" target="_blank>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">INFO</button>
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">11/11/2023</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link" href="#" onclick="paginaAnterior()"> <span
+                                    aria-hidden="true">&laquo;</span>
+                            </a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="mostrarPagina(1)">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="mostrarPagina(2)">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="mostrarPagina(3)">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="proximaPagina()"> <span
+                                    aria-hidden="true">&raquo;</span>
+                            </a></li>
+                    </ul>
+                </nav>
             </div>
+
+
+
+        </div>
 
     </main>
 
     <footer>
-
+        <p class="pfooter1">&copy;CommuniBus - Previsões de Ônibus</p>
     </footer>
 
+    <script>
+        let paginaAtual = 1;
 
-    <script src="twitter.js"></script>
+        function mostrarPagina(page) {
+            const cards = document.querySelectorAll('.card');
+            const cardsPerPage = 3;
+            const start = (page - 1) * cardsPerPage;
+            const end = start + cardsPerPage;
+
+            cards.forEach((card, index) => {
+                if (index >= start && index < end) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            paginaAtual = page;
+        }
+
+
+        function paginaAnterior() {
+            if (paginaAtual > 1) {
+                mostrarPagina(paginaAtual - 1);
+            }
+        }
+
+        function proximaPagina() {
+            const totalPaginas = Math.ceil(document.querySelectorAll('.card').length / 3);
+            if (paginaAtual < totalPaginas) {
+                mostrarPagina(paginaAtual + 1);
+            }
+        }
+
+        mostrarPagina(1);
+    </script>
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- jQuery library -->

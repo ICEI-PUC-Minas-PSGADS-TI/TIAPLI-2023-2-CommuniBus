@@ -163,6 +163,26 @@ a:hover {
     margin-top: 0;
 }
 
+.pfooter {
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pfooter1{
+    position:relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 a {
     color: #FF5200;
 }
@@ -257,6 +277,14 @@ h5 {
 
 .form-check-input:focus[type=checkbox] {
     box-shadow: 0 0 0 0.1px #FF5200;
+}
+
+.page-link{
+    color: #FF5200 !important;
+}
+
+.page-link:hover{
+    color: #035 !important;
 }
 
 .S9gUrf-YoZ4jf,

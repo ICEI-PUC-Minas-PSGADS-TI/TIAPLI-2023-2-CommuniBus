@@ -8,17 +8,201 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" type="image/x-icon" href="CommuniBuss.png">
-    <title>Previsões da Parada</title>
+    <title>CommuniBus</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+
+
+        ::selection {
+            color: #fff;
+            background: #1da1f2;
+        }
+
+        .wrapper {
+            background: #fff;
+            width: 100%;
+            border-radius: 15px;
+            padding: 25px 25px 15px 25px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-box {
+            padding-top: 10px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .input-box .tweet-area {
+            position: relative;
+            min-height: 130px;
+            max-height: 170px;
+            overflow-y: auto;
+        }
+
+        .tweet-area::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .tweet-area .placeholder {
+            position: absolute;
+            margin-top: -3px;
+            font-size: 22px;
+            color: #98A5B1;
+            pointer-events: none;
+            display: flex;
+        }
+
+        .tweet-area .placeholder i {
+            margin-right: 10px;
+        }
+
+        .tweet-area .input {
+            outline: none;
+            font-size: 17px;
+            min-height: inherit;
+            word-wrap: break-word;
+            word-break: break-all;
+            display: flex;
+        }
+
+        .tweet-area .editable {
+            position: relative;
+            z-index: 5;
+            display: flex;
+        }
+
+        .tweet-area .readonly {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            color: transparent;
+            background: transparent;
+            display: flex;
+        }
+
+        .readonly .highlight {
+            background: #fd9bb0;
+        }
+
+        .input-box .privacy {
+            color: #1da1f2;
+            margin: 15px 0;
+            display: flex;
+            padding: 7px 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            max-width: fit-content;
+
+        }
+
+        .privacy:hover,
+        .icons li:hover {
+            background: #e7f5fe;
+        }
+
+        .privacy i {
+            font-size: 18px;
+        }
+
+        .privacy span {
+            font-size: 15px;
+            font-weight: 600;
+            margin-left: 7px;
+        }
+
+        .bottom {
+            display: flex;
+            margin-top: 13px;
+            justify-content: space-between;
+        }
+
+        .bottom .icons {
+            display: inline-flex;
+        }
+
+        .icons li {
+            list-style: none;
+            color: #1da1f2;
+            font-size: 20px;
+            margin: 0 2px;
+            height: 38px;
+            width: 38px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .bottom .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bottom .counter {
+            color: #333;
+            display: none;
+            font-weight: 500;
+            margin-right: 15px;
+            padding-right: 15px;
+            border-right: 1px solid #aab8c2;
+        }
+
+        .bottom button {
+            padding: 9px 18px;
+            border: none;
+            outline: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            background: #1da1f2;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.5;
+            pointer-events: none;
+            transition: background 0.2s ease;
+        }
+
+        .bottom button.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .bottom button:hover {
+            background: #0d8bd9;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
 
 </head>
 
 <body>
-
     <header>
         <div class="header-div" style="display: flex; justify-content: space-between; align-items: center;">
+
 
             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvas" role="button">
@@ -32,7 +216,6 @@
             </button>
 
             <a href="./index.html"> <img src="CommuniBuss.png" alt="" class="imgheader"></a>
-
 
             <a id="botaoVoltar" class="btn d-flex" href="./login.html" style="font-size: 10px;">
                 <button type="button" class="btn btn-outline-secondary">
@@ -82,7 +265,7 @@
                                     <path
                                         d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z" />
                                     <path
-                                        d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z" />
+                                        d="M2 3h10v2h3V3zm0 3h4v3h3V6zm0 4h4v1h3v-1zm0 2h4v1h3v-1zm5-6h3v1H7V6zm3 0h3v1h-2V6zM7 8h3v1H7V8zm3 0h3v1h-2V8zm-3 2h3v1H7v-1zm3 0h3v1h-2v-1zm-3 2h3v1H7v-1zm3 0h3v1h-2v-1z" />
                                 </svg>
                                 Notícias
                             </a>
@@ -111,24 +294,36 @@
         </div>
 
         <div class="container">
-            <h1>Previsões da Parada</h1>
-            <section id="previsoes-section">
-                <!-- As previsões serão inseridas aqui via JavaScript -->
-            </section>
 
-            <div id="linhasContainer"></div>
+            <div class="wrapper">
+                <div class="input-box">
+                    <div class="tweet-area" id="tweet-area">
+                        <span class="placeholder">O que está acontecendo?</span>
+                        <div class="input editable" contenteditable="true" spellcheck="false"></div>
+                        <div class="input readonly" contenteditable="true" spellcheck="false"></div>
+                    </div>
 
-            <!-- Supondo que você já tem uma estrutura básica como esta -->
-            <div id="linhas-onibus">
-                <h2>Linhas de Ônibus</h2>
-                <ul id="lista-linhas-onibus">
-                    <!-- Linhas de ônibus serão adicionadas aqui pelo sismobile.js -->
-                </ul>
+                    <div class="privacy">
+                        <i class="fas fa-globe-asia"></i>
+                        <span>Qualquer pessoa pode responder</span>
+                    </div>
+
+                    <div class="bottom">
+                        <ul class="icons">
+                            <li><i class="uil uil-capture"></i></li>
+                            <li><i class="far fa-file-image"></i></li>
+                            <li><i class="fas fa-map-marker-alt"></i></li>
+                            <li><i class="far fa-grin"></i></li>
+                            <li><i class="far fa-user"></i></li>
+                        </ul>
+
+                        <div class="content">
+                            <span class="counter">100</span>
+                            <button onclick="postarTweet()">Postar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="previsoes-section">
-                <!-- Previsões serão exibidas aqui pelo sismobile.js -->
-            </div>
-        </div>
 
     </main>
 
@@ -136,6 +331,8 @@
         <p class="pfooter">&copy;CommuniBus - Previsões de Ônibus</p>
     </footer>
 
+
+    <script src="twitter.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- jQuery library -->
@@ -150,31 +347,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="sismobile.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.linha-link').forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const linhaId = this.getAttribute('data-linha-id');
-
-                    fetch(`/previsoes/${linhaId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Aqui você manipula os dados da previsão
-                            console.log(data); // Exemplo: exibir no console
-                        })
-                        .catch(error => console.error('Erro ao buscar previsões:', error));
-                });
-            });
-        });
-
-    </script>
-
+    <script src="./sismobile.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd2v5JdVNpMfjSm41NHwyztfdtrB7dg1Q&callback=initMap"></script>
 </body>
 
 </html>
