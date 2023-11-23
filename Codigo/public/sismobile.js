@@ -97,12 +97,14 @@ function exibirLinhasOnibusComoLinks(linhas) {
   linhas.forEach(linha => {
       const li = document.createElement('li');
       const link = document.createElement('a');
-      link.href = `javascript:obterPrevisoesPorLinha(${linha.cod});`; // Adiciona a função para buscar previsões
+      link.href = `javascript:void(0);`;
       link.textContent = linha.nome;
+      link.addEventListener('click', () => obterPrevisoesPorLinha(linha.cod));
       li.appendChild(link);
       listaLinhas.appendChild(li);
   });
 }
+
 
 
 function obterPrevisoes(codParada) {
@@ -275,6 +277,7 @@ async function buscarLinhasDaParada(codParada) {
       const parsedData = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
       if (parsedData && parsedData.linhas && Array.isArray(parsedData.linhas)) {
           const linhas = parsedData.linhas;
+          exibirLinhasOnibusComoLinks(linhas); // Chame esta função aqui
 
           // Aqui você pode processar as linhas como necessário
           // Por exemplo, atualizar a interface do usuário com as informações das linhas
@@ -303,6 +306,26 @@ function atualizarUIComLinhas(linhas) {
           <p>Descrição: ${linha.descricao}</p>
       `;
       container.appendChild(linhaDiv);
+  });
+}
+
+function exibirPrevisoes(previsoes) {
+  const secaoPrevisoes = document.getElementById('previsoes-section');
+  secaoPrevisoes.innerHTML = ''; // Limpa a seção de previsões
+
+  previsoes.forEach(previsao => {
+      const previsaoDiv = document.createElement('div');
+      previsaoDiv.className = 'previsao';
+
+      const horarioP = document.createElement('p');
+      horarioP.textContent = `Horário previsto: ${previsao.horarioPrevisto}`;
+
+      const veiculoP = document.createElement('p');
+      veiculoP.textContent = `Veículo: ${previsao.veiculo}`;
+
+      previsaoDiv.appendChild(horarioP);
+      previsaoDiv.appendChild(veiculoP);
+      secaoPrevisoes.appendChild(previsaoDiv);
   });
 }
 
