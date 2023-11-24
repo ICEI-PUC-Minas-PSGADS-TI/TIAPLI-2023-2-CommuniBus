@@ -35,8 +35,11 @@
 
 
 h2 {
-
+    font-size: 2rem;
     text-align: center;
+    color: #035;
+    text-shadow: 2px 2px 4px #00000033;
+    -webkit-text-stroke: 0.5px #00000014;
 }
 
 img {
@@ -335,6 +338,20 @@ span#senha-error {
     align-items: center;
 }
 
+.tweetButt{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50px;
+    box-shadow: 0 0px 12px 0 rgb(0 0 0 / 10%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    
+}
+
 .twitter-icon {
     margin-right: 5px;
     width: 10%;
@@ -353,10 +370,19 @@ span#senha-error {
     background-color: #0d8cbb;
 }
 
+@media screen and (max-width: 900px) {
+    #tweetButton {
+            display: none;
+        }
+}
 
 @media screen and (max-width: 768px) {
     main {
         padding: 1rem;
+    }
+
+    #tweetButton {
+        display: none;
     }
 
     .title {

@@ -14,7 +14,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
 
     <style>
-        .container{
+        .container {
             margin-top: 100px;
         }
     </style>
@@ -131,42 +131,25 @@
 
         <div class="container">
 
-            <div class="container-fluid d-flex justify-content-center align-items-center">
-                <div class="col">
-                    <div class="p-3">
-                        <h3>Telegram</h3>
-                        <a href="https://t.me/+Iv6xfsbgBiM3NmVh" target="_blank">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="">
-                   </a>
-                    </div>
-                </div>
-                <div class="col">
-                <div class="p-3">
-                    <h3>WhatsApp</h3>
-                    <a href="https://chat.whatsapp.com/GFOCbD2lU32KVaJQiG5fah" target="_blank">
-                        <img src="./WhatsApp_Logo.png" style="size: 70%;" alt="">
-                    </a>
-                </div>
-            </div>
+
         </div>
-    </div>
 
-    <div class="tweetButt">
+        <div class="tweetButt">
 
-        <a class="tweetButton" id="tweetButton" href="https://twitter.com/intent/tweet" data-size="large">
-            <img src="icone_twitter.png" class="tweetButton" alt="Twitter Icon">
-        </a>
-    </div>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="tweetButton" id="tweetButton" href="https://twitter.com/intent/tweet" data-size="large">
+                <img src="icone_twitter.png" class="tweetButton" alt="Twitter Icon">
+            </a>
+        </div>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <script>
-        document.getElementById('tweetButton').addEventListener('click', function (event) {
-            event.preventDefault();
-            const tweetText = encodeURIComponent("#CommuniBus");
-            const tweetURL = `https://twitter.com/intent/tweet?text=${tweetText}`;
-            window.open(tweetURL, '_blank');
-        });
-    </script>
+        <script>
+            document.getElementById('tweetButton').addEventListener('click', function (event) {
+                event.preventDefault();
+                const tweetText = encodeURIComponent("#CommuniBus");
+                const tweetURL = `https://twitter.com/intent/tweet?text=${tweetText}`;
+                window.open(tweetURL, '_blank');
+            });
+        </script>
 
     </main>
 
