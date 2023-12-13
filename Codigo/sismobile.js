@@ -77,6 +77,45 @@ async function main() {
   }
 }
 
+// Função modificada para buscar previsões de uma linha de ônibus específica
+function obterPrevisoesPorLinha(codLinha, codParada, previsaoElementId) {
+  axios.get(`http://127.0.0.1:4001/proxyPrevisoesPorCodigo?codLinha=${codLinha}&codParada=${codParada}`)
+      .then(response => {
+          const previsoes = JSON.parse(response.data);
+          const previsaoElement = document.getElementById(previsaoElementId);
+          previsaoElement.textContent = 'Previsão: ' + previsoes.horarioPrevisto; // Adapte conforme o formato da resposta
+      })
+      .catch(error => {
+          console.error("Erro ao obter previsões:", error);
+      });
+}
+
+
+// Função para exibir linhas de ônibus como links clicáveis
+function exibirLinhasOnibus(linhas, codParada) {
+  const listaLinhas = document.getElementById('lista-linhas-onibus');
+  listaLinhas.innerHTML = '';
+
+  linhas.forEach(linha => {
+      const li = document.createElement('li');
+      li.textContent = linha.nome + ' - ';
+
+      // Buscar previsões para cada linha
+      buscarPrevisoes(codParada, linha.cod).then(previsoes => {
+          if (previsoes && previsoes.length > 0) {
+              li.textContent += 'Próxima chegada: ' + previsoes[0].horarioPrevisto;
+          } else {
+              li.textContent += 'Sem previsões disponíveis';
+          }
+      });
+
+      listaLinhas.appendChild(li);
+  });
+}
+
+
+
+
 function obterPrevisoes(codParada) {
   axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`)
     .then(response => {
@@ -88,6 +127,26 @@ function obterPrevisoes(codParada) {
     });
 }
 
+// Função para exibir linhas de ônibus como links clicáveis
+function exibirLinhasOnibus(linhas) {
+  const listaLinhas = document.getElementById('lista-linhas-onibus');
+  listaLinhas.innerHTML = '';
+
+  linhas.forEach(linha => {
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `javascript:void(0);`; // Prevenir o comportamento padrão do link
+      link.textContent = linha.nome;
+      link.onclick = () => {
+          obterPrevisoesPorLinha(linha.cod); // Chamar a função para buscar previsões
+      };
+      li.appendChild(link);
+      listaLinhas.appendChild(li);
+  });
+}
+
+
+// Você deve chamar essa função com os dados da API quando necessário
 
 
 
@@ -202,34 +261,97 @@ function initMap() {
   });
 }
 
-async function buscarLinhasDaParada(codParada) {
-  try {
-    const apiUrl = `http://127.0.0.1:4001/proxyLinhasDaParada?codParada=${codParada}`;
-    
-    const response = await axios.get(apiUrl);
-    
-    if (response.data && response.data.linhas && Array.isArray(response.data.linhas)) {
-      const linhas = response.data.linhas;
-      const listaLinhasOnibus = document.getElementById('lista-linhas-onibus');
-      listaLinhasOnibus.innerHTML = ''; // Limpa a lista atual
+function retornoJSON(data) {
+  if (data && data.linhas) {
+    const listaLinhasOnibus = document.getElementById('lista-linhas-onibus');
+    listaLinhasOnibus.innerHTML = ''; // Limpa a lista atual
 
-      if (linhas.length === 0) {
-          console.log('Nenhuma linha de ônibus encontrada para esta parada.');
-          return;
-      }
-
-      linhas.forEach(linha => {
-          const item = document.createElement('li');
-          item.textContent = `${linha.num_linha} - ${linha.descricao}`;
-          listaLinhasOnibus.appendChild(item);
-      });
-    } else {
-      console.error('Resposta inválida ou ausente de linhas de ônibus.');
+    if (data.linhas.length === 0) {
+      console.log('Nenhuma linha de ônibus encontrada para esta parada.');
+      return;
     }
-  } catch (error) {
-    console.error('Erro ao buscar linhas de ônibus:', error);
+
+    data.linhas.forEach(linha => {
+      const item = document.createElement('li');
+      item.textContent = `${linha.num_linha} - ${linha.descricao}`;
+      listaLinhasOnibus.appendChild(item);
+    });
+  } else {
+    console.error('Resposta inválida ou ausente de linhas de ônibus.');
   }
 }
+
+async function buscarLinhasDaParada(codParada) {
+  try {
+      const response = await axios.get(`http://127.0.0.1:4001/proxyLinhasDaParada?codParada=${codParada}`);
+      
+      // Correção para tratar a resposta como JSON
+      const parsedData = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
+      if (parsedData && parsedData.linhas && Array.isArray(parsedData.linhas)) {
+          const linhas = parsedData.linhas;
+          exibirLinhasOnibus(linhas);
+          
+          // Por exemplo, atualizar a interface do usuário com as informações das linhas
+          linhas.forEach(linha => {
+              // Processamento de cada linha
+              console.log(linha); // Exemplo de log
+              atualizarUIComLinhas(linhas);
+
+            });
+      } else {
+          console.error("Nenhuma linha encontrada para a parada:", codParada);
+      }
+  } catch (error) {
+      console.error("Erro ao buscar linhas da parada:", error);
+  }
+}
+function atualizarUIComLinhas(linhas) {
+  const container = document.getElementById('linhasContainer');
+  container.innerHTML = ''; // Limpar conteúdo anterior
+
+  linhas.forEach(linha => {
+      const linhaDiv = document.createElement('div');
+      linhaDiv.innerHTML = `
+          <p>Código da Linha: ${linha.cod_linha}</p>
+          <p>Número da Linha: ${linha.num_linha}</p>
+          <p>Descrição: ${linha.descricao}</p>
+      `;
+      container.appendChild(linhaDiv);
+  });
+}
+
+async function buscarPrevisoes(codParada, codLinha) {
+  try {
+      const response = await axios.get(`http://127.0.0.1:4001/proxyPrevisoesPorCodigo?codLinha=${codLinha}&codParada=${codParada}`);
+      return response.data; // Adapte conforme o formato da resposta da sua API
+  } catch (error) {
+      console.error("Erro ao buscar previsões:", error);
+      return null;
+  }
+}
+
+
+
+function exibirPrevisoes(previsoes) {
+  const secaoPrevisoes = document.getElementById('previsoes-section');
+  secaoPrevisoes.innerHTML = ''; // Limpa a seção de previsões
+
+  previsoes.forEach(previsao => {
+      const previsaoDiv = document.createElement('div');
+      previsaoDiv.className = 'previsao';
+
+      const horarioP = document.createElement('p');
+      horarioP.textContent = `Horário previsto: ${previsao.horarioPrevisto}`;
+
+      const veiculoP = document.createElement('p');
+      veiculoP.textContent = `Veículo: ${previsao.veiculo}`;
+
+      previsaoDiv.appendChild(horarioP);
+      previsaoDiv.appendChild(veiculoP);
+      secaoPrevisoes.appendChild(previsaoDiv);
+  });
+}
+
 
 
 

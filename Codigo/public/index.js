@@ -75,18 +75,17 @@ app.get('/proxy', async (req, res) => {
     }
 });
 app.get('/proxyPrevisoesPorCodigo', async (req, res) => {
-    const codParada = req.query.codParada;
-    if (!codParada) {
-        return res.status(400).send('codParada é obrigatório');
-    }
-
+    const { codLinha, codParada } = req.query;
     try {
-        const response = await axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`);
-        res.send(response.data);
+        const apiResponse = await axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`);
+        res.json(apiResponse.data);
     } catch (error) {
-        res.status(500).send('Erro ao buscar previsões');
+        res.status(500).send("Erro ao obter previsões: " + error.message);
     }
 });
+
+
+
 
 app.get('/proxyParadasProximas', async (req, res) => {
     const { latitude, longitude } = req.query;
