@@ -9,6 +9,7 @@ const TwitterStrategy = require('passport-twitter').Strategy;
 const cors = require('cors');
 const Twit = require('twit');
 const { fa } = require('@fortawesome/free-brands-svg-icons');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 
 const app = express();
@@ -45,6 +46,23 @@ app.get('/proxyLinhasDaParada', cors(), async (req, res) => {
     }
 });
 
+app.get('/proxyBuscarPrevisoes', cors(), async (req, res) => {
+    const codParada = req.query.codParada;
+    if (!codParada) {
+        return res.status(400).send('codParada é obrigatório');
+    }
+
+    try {
+        const response = await axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Erro ao fazer a requisição:', error);
+        res.status(500).send('Erro interno');
+    }
+});
+
+
+
 
 app.get('/parada/:codParada', async (req, res) => {
     const codParada = req.params.codParada;
@@ -74,15 +92,7 @@ app.get('/proxy', async (req, res) => {
         res.status(500).send('Erro interno');
     }
 });
-app.get('/proxyPrevisoesPorCodigo', async (req, res) => {
-    const { codLinha, codParada } = req.query;
-    try {
-        const apiResponse = await axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`);
-        res.json(apiResponse.data);
-    } catch (error) {
-        res.status(500).send("Erro ao obter previsões: " + error.message);
-    }
-});
+
 
 
 

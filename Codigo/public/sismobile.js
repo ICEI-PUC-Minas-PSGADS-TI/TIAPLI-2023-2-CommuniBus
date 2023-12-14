@@ -77,67 +77,61 @@ async function main() {
   }
 }
 
-// Função modificada para buscar previsões de uma linha de ônibus específica
-function obterPrevisoesPorLinha(codLinha, codParada, previsaoElementId) {
-  axios.get(`http://127.0.0.1:4001/proxyPrevisoesPorCodigo?codLinha=${codLinha}&codParada=${codParada}`)
-    .then(response => {
-      const previsoes = JSON.parse(response.data);
-      const previsaoElement = document.getElementById(previsaoElementId);
-      previsaoElement.textContent = 'Previsão: ' + previsoes.horarioPrevisto; // Adapte conforme o formato da resposta
-    })
-    .catch(error => {
-      console.error("Erro ao obter previsões:", error);
-    });
-}
 
 
-// Função para exibir linhas de ônibus como links clicáveis
-function exibirLinhasOnibus(linhas, codParada) {
+
+async function exibirLinhasOnibus(linhas, codParada) {
   console.log('Exibindo linhas de ônibus para a parada:', codParada);
   const listaLinhas = document.getElementById('lista-linhas-onibus');
   listaLinhas.innerHTML = '';
 
-  linhas.forEach(linha => {
+  for (const linha of linhas) {
       console.log('Processando linha:', linha);
       const li = document.createElement('li');
       li.textContent = `${linha.num_linha} - ${linha.descricao} - `;
 
-      buscarPrevisoes(codParada, linha.cod_linha).then(previsoes => {
-          if (previsoes && previsoes.length > 0) {
-              console.log('Previsões encontradas:', previsoes);
-              li.textContent += 'Próxima chegada: ' + previsoes[0].horarioPrevisto;
+      try {
+          const previsoes = await buscarPrevisoes(codParada);
+          const previsaoLinha = previsoes.previsoes.find(p => p.sgLin.toString() === linha.num_linha.toString());
+          
+          if (previsaoLinha) {
+              console.log('Previsões encontradas:', previsaoLinha);
+              li.textContent += 'Próxima chegada: ' + previsaoLinha.prev;
           } else {
               console.log('Sem previsões disponíveis para a linha:', linha.num_linha);
               li.textContent += 'Sem previsões disponíveis';
           }
-      }).catch(error => {
+      } catch (error) {
           console.error('Erro ao buscar previsões para a linha:', linha.num_linha, error);
-      });
+      }
 
       listaLinhas.appendChild(li);
-  });
+  }
 }
 
 
-
-
-
-function obterPrevisoes(codParada) {
-  axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`)
+function buscarPrevisoes(codParada) {
+  return axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`)
     .then(response => {
-      const data = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
-      exibirPrevisoes(data);
+      console.log("Resposta da API:", response.data);  // Log para depuração
+      const previsoes = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
+      return previsoes;
     })
     .catch(error => {
-      console.error("Erro ao obter previsões:", error);
+      console.error("Erro na requisição da API: ", error);
+      throw error;
     });
 }
 
-// Função para exibir linhas de ônibus como links clicáveis
 
 
 
-// Você deve chamar essa função com os dados da API quando necessário
+
+
+
+
+
+
 
 
 
@@ -310,35 +304,6 @@ function atualizarUIComLinhas(linhas) {
     container.appendChild(linhaDiv);
   });
 }
-
-async function buscarPrevisoes(codParada, codLinha) {
-  try {
-      const response = await axios.get(`http://127.0.0.1:4001/proxyPrevisoesPorCodigo?codLinha=${codLinha}&codParada=${codParada}`);
-      // Processar a resposta para extrair o JSON válido
-      const dadosFormatados = JSON.parse(response.data.replace('retornoJSON(', '').slice(0, -1));
-      
-      if (dadosFormatados.sucesso && dadosFormatados.previsoes) {
-          // Encontrar a previsão específica para a linha desejada
-          const previsaoLinha = dadosFormatados.previsoes.find(p => p.sgLin === codLinha);
-          return previsaoLinha ? previsaoLinha.prev : 'Sem previsões disponíveis';
-      } else {
-          console.error('Falha ao obter previsões:', dadosFormatados.mensagem);
-          return 'Sem previsões disponíveis';
-      }
-  } catch (error) {
-      console.error("Erro ao buscar previsões:", error);
-      return 'Erro ao buscar previsões';
-  }
-}
-
-
-
-
-
-
-
-
-
 
 
 window.addEventListener('load', () => {
