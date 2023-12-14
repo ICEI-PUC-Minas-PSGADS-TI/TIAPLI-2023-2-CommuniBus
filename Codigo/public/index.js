@@ -12,6 +12,8 @@ const { fa } = require('@fortawesome/free-brands-svg-icons');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 
+
+
 const app = express();
 const PORT = 4001;
 
@@ -30,6 +32,47 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// Esta parte do código deve ser removida do arquivo index.js e colocada no código do cliente (JavaScript no navegador)
+// document.getElementById('mensagemForm').addEventListener('submit', function(e) { ... });
+
+app.post('/postarMensagem', (req, res) => {
+    console.log('Recebendo uma nova mensagem...');
+    const userId = req.session.userId;
+    const mensagem = req.body.mensagem;
+
+    if (!userId || !mensagem) {
+        console.log('Dados incompletos recebidos.');
+        return res.status(400).send("Dados incompletos.");
+    }
+
+    console.log(`Inserindo mensagem no banco de dados para o usuário ID: ${userId}`);
+    db.query('INSERT INTO mural (userId, mensagem, dataHora) VALUES (?, ?, NOW())', 
+        [userId, mensagem], 
+        (err, results) => {
+            if (err) {
+                console.error('Erro ao inserir mensagem:', err);
+                return res.status(500).send("Erro ao postar mensagem.");
+            }
+            console.log('Mensagem inserida com sucesso.');
+            res.send("Mensagem postada com sucesso.");
+        });
+});
+
+app.get('/getMensagens', (req, res) => {
+    db.query('SELECT usuario.nome, mural.mensagem, mural.dataHora FROM mural JOIN usuario ON mural.userId = usuario.idusuario ORDER BY mural.dataHora DESC', 
+             (err, results) => {
+                 if (err) {
+                     console.error(err);
+                     return res.status(500).send("Erro ao buscar mensagens.");
+                 }
+                 res.json(results);
+             });
+});
+
+
 
 app.get('/proxyLinhasDaParada', cors(), async (req, res) => {
     const codParada = req.query.codParada;

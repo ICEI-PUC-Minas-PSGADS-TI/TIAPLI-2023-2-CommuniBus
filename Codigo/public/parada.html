@@ -8,11 +8,6 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish">
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" type="image/x-icon" href="CommuniBuss.png">
-    <title>Previsões da Parada</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
-
 </head>
 
 <body>
@@ -86,20 +81,20 @@
                         </div>
                     </li>
 
-                    
+
                     <li>
                         <div class="licontent d-flex align-items">
                             <a href="./mural.html" class="navlink">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
                                     class="bi bi-people" viewBox="0 0 20 20">
                                     <path
-                                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                                        d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
                                 </svg>
                                 Mural
                             </a>
                         </div>
                     </li>
-                    
+
                     <li>
                         <div class="licontent d-flex align-items">
 
@@ -125,7 +120,7 @@
         </div>
 
         <div class="container">
-           
+
 
             <!-- Supondo que você já tem uma estrutura básica como esta -->
             <div id="linhas-onibus">
@@ -135,7 +130,20 @@
                 </ul>
             </div>
 
+            <!-- Mural de Mensagens -->
+            <div id="mural" class="section">
+                <h2>Mural de Mensagens</h2>
+                <div id="mensagensMural" class="mensagens-mural">
+                    <!-- Mensagens postadas aparecerão aqui -->
+                </div>
+                <input type="text" id="mensagemInput" placeholder="Escreva uma mensagem..." />
+                <button onclick="postarMensagem()">Postar Mensagem</button>
+            </div>
+
+
+
         </div>
+
 
     </main>
 
@@ -143,44 +151,13 @@
         <p class="pfooter">&copy;CommuniBus - Previsões de Ônibus</p>
     </footer>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="sismobile.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.linha-link').forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const linhaId = this.getAttribute('data-linha-id');
-
-                    fetch(`/previsoes/${linhaId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Aqui você manipula os dados da previsão
-                            console.log(data); // Exemplo: exibir no console
-                        })
-                        .catch(error => console.error('Erro ao buscar previsões:', error));
-                });
-            });
-        });
-
-    </script>
+    <script src="./mural.js"></script>
 
 </body>
 
