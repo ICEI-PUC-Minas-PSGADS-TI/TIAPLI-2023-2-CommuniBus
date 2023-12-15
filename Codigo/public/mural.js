@@ -1,58 +1,44 @@
 function postarMensagem() {
+    var nome = document.getElementById('nomeInput').value.trim();
     var mensagem = document.getElementById('mensagemInput').value.trim();
-    if (mensagem) {
+
+    if (nome && mensagem) {
         var mural = document.getElementById('mensagensMural');
-        mural.innerHTML += '<div class="mensagem">' + mensagem + '</div>';
+        var novaMensagem = document.createElement('div');
+        novaMensagem.classList.add('mensagem');
+        novaMensagem.innerHTML = `<strong>${nome}:</strong> ${mensagem}`;
+        mural.appendChild(novaMensagem);
         document.getElementById('mensagemInput').value = '';
+
+        // Adicionar a mensagem ao localStorage
+        adicionarMensagemAoLocalStorage(nome, mensagem);
     } else {
-        alert("Por favor, escreva uma mensagem.");
+        alert("Por favor, preencha seu nome e a mensagem.");
     }
 }
 
-function adicionarMensagemAoMural(mensagem) {
-    var mural = document.getElementById('mensagensMural');
-    var dataFormatada = new Date(dataHora).toLocaleString();
-    mural.innerHTML += `<div class="mensagem"><strong>${usuario}</strong> (${dataFormatada}): ${mensagem}</div>`;
-
-
-function carregarMensagens() {
+// Função para adicionar mensagem ao localStorage
+function adicionarMensagemAoLocalStorage(nome, mensagem) {
     var mensagens = JSON.parse(localStorage.getItem('mensagensMural') || '[]');
-    mensagens = mensagens.filter(m => Date.now() - m.timestamp < 24 * 60 * 60 * 1000); // Filtrar mensagens das últimas 24 horas
-    localStorage.setItem('mensagensMural', JSON.stringify(mensagens)); // Atualizar o localStorage
-
-    var mural = document.getElementById('mensagensMural');
-    mural.innerHTML = mensagens.map(m => `<p>${m.mensagemCompleta}</p>`).join('');
+    var dataHoraAtual = new Date().toLocaleString();
+    mensagens.push({ usuario: nome, mensagemCompleta: `${nome}: ${mensagem}`, timestamp: dataHoraAtual });
+    localStorage.setItem('mensagensMural', JSON.stringify(mensagens));
 }
+
+function apagarTodasMensagens() {
+    localStorage.removeItem('mensagensMural');
+    carregarMensagensDoLocalStorage(); // Atualiza o mural após remover as mensagens
+}
+
+
+// Função para carregar mensagens do localStorage ao mural
+function carregarMensagensDoLocalStorage() {
+    var mensagens = JSON.parse(localStorage.getItem('mensagensMural') || '[]');
+    var mural = document.getElementById('mensagensMural');
+    mural.innerHTML = mensagens.map(m => `<div class="mensagem">${m.mensagemCompleta}</div>`).join('');
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById('mensagemForm');
-    
-    if(form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            var mensagem = document.querySelector('textarea[name="mensagem"]').value;
-            console.log('Enviando mensagem: ', mensagem);
-
-            fetch('/postarMensagem', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'mensagem=' + encodeURIComponent(mensagem)
-            })
-            .then(response => {
-                console.log('Resposta recebida do servidor.');
-                return response.text();
-            })
-            .then(text => {
-                console.log('Mensagem postada com sucesso:', text);
-                // Aqui você atualiza a página com a nova mensagem
-            })
-            .catch(err => console.error('Erro ao postar mensagem:', err));
-        });
-    }
+    carregarMensagensDoLocalStorage();
 });
-
-
-// Carregar mensagens quando a página for carregada
-document.addEventListener('DOMContentLoaded', carregarMensagens);}

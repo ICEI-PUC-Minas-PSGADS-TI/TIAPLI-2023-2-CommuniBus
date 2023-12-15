@@ -61,16 +61,29 @@ app.post('/postarMensagem', (req, res) => {
         });
 });
 
-app.get('/getMensagens', (req, res) => {
-    db.query('SELECT usuario.nome, mural.mensagem, mural.dataHora FROM mural JOIN usuario ON mural.userId = usuario.idusuario ORDER BY mural.dataHora DESC', 
-             (err, results) => {
-                 if (err) {
-                     console.error(err);
-                     return res.status(500).send("Erro ao buscar mensagens.");
-                 }
-                 res.json(results);
-             });
+app.delete('/apagarMensagens', (req, res) => {
+    db.query('DELETE FROM mural', (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Erro ao apagar as mensagens.");
+        }
+        console.log('Todas as mensagens foram apagadas com sucesso.');
+        res.send("Todas as mensagens foram apagadas com sucesso.");
+    });
 });
+
+
+app.delete('/apagarMensagens', (req, res) => {
+    db.query('DELETE FROM mural', (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Erro ao apagar as mensagens.");
+        }
+        console.log('Todas as mensagens foram apagadas com sucesso.');
+        res.send("Todas as mensagens foram apagadas com sucesso.");
+    });
+});
+
 
 
 
@@ -167,6 +180,7 @@ app.post("/", function (req, res) {
             return;
         }
         if (results && results.length > 0) {
+             req.session.userId = results[0].idusuario;
             res.redirect("/index.html");
         } else {
             res.redirect("/");

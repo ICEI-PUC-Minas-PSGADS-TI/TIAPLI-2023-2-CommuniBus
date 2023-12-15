@@ -9,6 +9,9 @@ const TwitterStrategy = require('passport-twitter').Strategy;
 const cors = require('cors');
 const Twit = require('twit');
 const { fa } = require('@fortawesome/free-brands-svg-icons');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+
 
 
 const app = express();
@@ -29,6 +32,60 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// Esta parte do código deve ser removida do arquivo index.js e colocada no código do cliente (JavaScript no navegador)
+// document.getElementById('mensagemForm').addEventListener('submit', function(e) { ... });
+
+app.post('/postarMensagem', (req, res) => {
+    console.log('Recebendo uma nova mensagem...');
+    const userId = req.session.userId;
+    const mensagem = req.body.mensagem;
+
+    if (!userId || !mensagem) {
+        console.log('Dados incompletos recebidos.');
+        return res.status(400).send("Dados incompletos.");
+    }
+
+    console.log(`Inserindo mensagem no banco de dados para o usuário ID: ${userId}`);
+    db.query('INSERT INTO mural (userId, mensagem, dataHora) VALUES (?, ?, NOW())', 
+        [userId, mensagem], 
+        (err, results) => {
+            if (err) {
+                console.error('Erro ao inserir mensagem:', err);
+                return res.status(500).send("Erro ao postar mensagem.");
+            }
+            console.log('Mensagem inserida com sucesso.');
+            res.send("Mensagem postada com sucesso.");
+        });
+});
+
+app.delete('/apagarMensagens', (req, res) => {
+    db.query('DELETE FROM mural', (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Erro ao apagar as mensagens.");
+        }
+        console.log('Todas as mensagens foram apagadas com sucesso.');
+        res.send("Todas as mensagens foram apagadas com sucesso.");
+    });
+});
+
+
+app.delete('/apagarMensagens', (req, res) => {
+    db.query('DELETE FROM mural', (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Erro ao apagar as mensagens.");
+        }
+        console.log('Todas as mensagens foram apagadas com sucesso.');
+        res.send("Todas as mensagens foram apagadas com sucesso.");
+    });
+});
+
+
+
 
 app.get('/proxyLinhasDaParada', cors(), async (req, res) => {
     const codParada = req.query.codParada;
@@ -44,6 +101,23 @@ app.get('/proxyLinhasDaParada', cors(), async (req, res) => {
         res.status(500).send('Erro interno');
     }
 });
+
+app.get('/proxyBuscarPrevisoes', cors(), async (req, res) => {
+    const codParada = req.query.codParada;
+    if (!codParada) {
+        return res.status(400).send('codParada é obrigatório');
+    }
+
+    try {
+        const response = await axios.get(`http://mobile-l.sitbus.com.br:6060/siumobile-ws-v01/rest/ws/buscarPrevisoes/${codParada}/0/retornoJSON`);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Erro ao fazer a requisição:', error);
+        res.status(500).send('Erro interno');
+    }
+});
+
+
 
 
 app.get('/parada/:codParada', async (req, res) => {
@@ -74,15 +148,7 @@ app.get('/proxy', async (req, res) => {
         res.status(500).send('Erro interno');
     }
 });
-app.get('/proxyPrevisoesPorCodigo', async (req, res) => {
-    const { codLinha, codParada } = req.query;
-    try {
-        const apiResponse = await axios.get(`[URL_DA_API_DE_PREVISÕES]?codLinha=${codLinha}&codParada=${codParada}`);
-        res.json(apiResponse.data);
-    } catch (error) {
-        res.status(500).send("Erro ao obter previsões: " + error.message);
-    }
-});
+
 
 
 
@@ -114,6 +180,7 @@ app.post("/", function (req, res) {
             return;
         }
         if (results && results.length > 0) {
+             req.session.userId = results[0].idusuario;
             res.redirect("/index.html");
         } else {
             res.redirect("/");

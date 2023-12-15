@@ -3,6 +3,8 @@
     padding: 16px;
     margin: 16px;
     border-radius: 8px;
+    min-width: fit-content;
+
 }
 
 #carouselExampleControls .carousel-control-prev,
@@ -35,7 +37,8 @@
 
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    text-transform: uppercase;
     text-align: center;
     color: #035;
     text-shadow: 2px 2px 4px #00000033;
@@ -245,18 +248,25 @@ h5 {
     padding: 20px;
     border-radius: 10px;
     background: #D9D9D9;
-    box-shadow: 5px 10px 13px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 5px 10px 13px 6px rgba(0, 51, 85, 0.377);
     justify-content: center;
     align-items: center;
     justify-self: center;
     text-align: center;
+}
+
+.container1{
+    padding: 20px;
+    border-radius: 10px;
+    background: #f2f2f2;
+    box-shadow: 5px 10px 13px 6px rgba(0, 51, 85, 0.377);
 
 }
 
 .form-control {
     border-radius: 10px;
     background: rgba(255, 246, 242, 0.46);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: 0px 4px 4px 0pxrgba(0, 51, 85, 0.377) inset;
 }
 
 .headerindex {

@@ -8,6 +8,73 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish">
     <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/x-icon" href="CommuniBuss.png">
+    <title>Paradas</title>
+
+    <style>
+        .section {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .mensagens-mural {
+            height: 200px;
+            max-height: 200px;
+            overflow: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .input-btn-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .mensagem {
+            background-color: #e6e6e6;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 10px;
+            position: flex;
+        }
+
+        #mensagemInput {
+            width: calc(100% - 90px);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+
+        }
+
+        .btn-primary {
+            width: 87%;
+            border-radius: 10px !important;
+            margin-top: 1rem !important;
+            background: #FF5200 !important;
+            border-color: #FF5200 !important;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            font-family: 'Mulish';
+            text-transform: uppercase;
+            align-items: center !important;
+            padding-left: 1rem !important;
+        }
+
+
+        .btn-primary:hover {
+            background-color: #035 !important;
+            border-color: #035 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -119,7 +186,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container1">
 
 
             <!-- Supondo que você já tem uma estrutura básica como esta -->
@@ -129,26 +196,60 @@
                     <!-- Linhas de ônibus serão adicionadas aqui pelo sismobile.js -->
                 </ul>
             </div>
+        </div>
 
             <!-- Mural de Mensagens -->
-            <div id="mural" class="section">
-                <h2>Mural de Mensagens</h2>
-                <div id="mensagensMural" class="mensagens-mural">
-                    <!-- Mensagens postadas aparecerão aqui -->
+            <div class="container2">
+                <div id="mural" class="section">
+                    <h2>Mural CommuniBus</h2>
+    
+                    <div id="mensagensMural" class="mensagens-mural">
+                        <!-- Mensagens postadas aparecerão aqui -->
+                    </div>
+    
+                    <div class="row align-items-center">
+                        <div class="col-sm-2">
+                            <input type="text" id="nomeInput" class="form-control" placeholder="Nome" />
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" id="mensagemInput" class="form-control"
+                                placeholder="Escreva uma mensagem..." />
+                        </div>
+                        <div class="col-sm-2">
+                            <button onclick="postarMensagem()" class="btn btn-primary btn-block">Enviar</button>
+                        </div>
+                        <!--
+        <button onclick="apagarTodasMensagens()">apagar</button>
+    -->
+                    </div>
                 </div>
-                <input type="text" id="mensagemInput" placeholder="Escreva uma mensagem..." />
-                <button onclick="postarMensagem()">Postar Mensagem</button>
             </div>
 
 
 
-        </div>
 
 
     </main>
 
+    <div class="tweetButt">
+
+        <a class="tweetButton" id="tweetButton" href="https://twitter.com/intent/tweet" data-size="large">
+            <img src="icone_twitter.png" class="tweetButton" alt="Twitter Icon">
+        </a>
+    </div>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <script>
+        document.getElementById('tweetButton').addEventListener('click', function (event) {
+            event.preventDefault();
+            const tweetText = encodeURIComponent("#CommuniBus");
+            const tweetURL = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            window.open(tweetURL, '_blank');
+        });
+    </script>
+
     <footer>
-        <p class="pfooter">&copy;CommuniBus - Previsões de Ônibus</p>
+        <p class="pfooter1">&copy;CommuniBus - Previsões de Ônibus</p>
     </footer>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
